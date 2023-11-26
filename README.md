@@ -1,4 +1,4 @@
-# Used Yamaha Motorcycle Price Prediction
+# Used Motorcycle Price Prediction
 Project Matakuliah IS794 Deep Learning
 Kelompok B:
 - Daffa Kaisha Pratama Chandra
