@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediksi Harga Motor!</title>
+</head>
+<body>
+    <h1>Prediksi Harga Motor Bekas</h1>
+    <div>
+        <form method="POST" action="/result">
+            <label for="merk">Merk:</label> <br>
+            <select name="merk" id="merk_motor">
+                <option value="1">Yamaha</option>
+                <option value="2">Honda</option>
+                <option value="3">Kawasaki</option>
+                <option value="4">Suzuki</option>
+            </select> <br> <br>
+
+            <label for="merk">Tahun Kendaraan:</label> <br>
+            <input type="text" placeholder="Tahun" id="tahun_motor"> <br> <br>
+
+            <label for="merk">Kapasitas Mesin:</label> <br>
+            <input type="text" placeholder="Kapasitas Mesin" id="kapasitas_mesin"> <br> <br>
+
+            <label for="merk">Transmisi:</label> <br>
+            <select name="transmisi" id="transmisi_motor">
+                <option value="1">Manual</option>
+                <option value="2">Otomatis</option>
+            </select> <br> <br>
+
+            <label for="merk">Lokasi:</label> <br>
+            <input type="text" placeholder="Lokasi" id="lokasi_motor"> <br> <br>
+            <button type="submit">Predict!</button>
+        </form>
+    </div>
+</body>
+</html>
