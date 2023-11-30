@@ -10,16 +10,8 @@ import json
 
 app = Flask(__name__)
 
-df = pd.read_csv("./Dataset/Dataset_Training.csv", index_col=0)
-df = df[["lokasi","harga","kapasitas_mesin","tahun","transmisi","kilometer","merk"]]
-X = df.drop(columns="harga")
-y = df[['harga']].values.reshape(1,-1)
-
-# Initialize separate scalers for X and y
-ss = StandardScaler()
-X_scaler = StandardScaler().fit_transform(X)
-y_scaler = StandardScaler().fit_transform(y)
-
+# Scaler
+scaler = pickle.load(open('scaler.pkl', 'rb'))
 
 @app.route('/')
 def index():
@@ -31,14 +23,14 @@ def home():
     return render_template("base.html")
 
 def ValuePredictor(to_predict_list):
-    to_predict = np.array(to_predict_list).reshape(1, -1)
-    to_predict_scaled = X_scaler.transform(to_predict)
+    to_predict = np.array(to_predict_list)
+    to_predict_scaled = scaler.transform(to_predict)
     loaded_model = pickle.load(open("nn_model.pkl", "rb"))
 
     result = loaded_model.predict(to_predict_scaled)
 
     # Inverse transform the result
-    result = ss.inverse_transform(result)
+    result = scaler.inverse_transform(result)
 
     # Convert the result to a Python list
     result = result.tolist()
