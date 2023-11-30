@@ -1,5 +1,6 @@
 from flask import Flask, redirect, url_for, render_template, request
 from sklearn.preprocessing import LabelEncoder, StandardScaler
+from sklearn.model_selection import train_test_split
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -9,8 +10,16 @@ import json
 
 app = Flask(__name__)
 
-le = LabelEncoder()
+df = pd.read_csv("./Dataset/Dataset_Training.csv", index_col=0)
+df = df[["lokasi","harga","kapasitas_mesin","tahun","transmisi","kilometer","merk"]]
+X = df.drop(columns="harga")
+y = df[['harga']].values.reshape(1,-1)
+
+# Initialize separate scalers for X and y
 ss = StandardScaler()
+X_scaler = StandardScaler().fit_transform(X)
+y_scaler = StandardScaler().fit_transform(y)
+
 
 @app.route('/')
 def index():
@@ -23,20 +32,32 @@ def home():
 
 def ValuePredictor(to_predict_list):
     to_predict = np.array(to_predict_list).reshape(1, -1)
+    to_predict_scaled = X_scaler.transform(to_predict)
     loaded_model = pickle.load(open("nn_model.pkl", "rb"))
-    result = loaded_model.predict(to_predict)
-    return result[0]
 
+    result = loaded_model.predict(to_predict_scaled)
+
+    # Inverse transform the result
+    result = ss.inverse_transform(result)
+
+    # Convert the result to a Python list
+    result = result.tolist()
+
+    result_json = json.dumps(result)
+    return result_json
 
 @app.route('/result', methods = ['POST'])
 def result():
     if request.method == 'POST':
         to_predict_list = request.form.to_dict()
-        json_str = json.dumps(to_predict_list)
+        to_predict_list = list(to_predict_list.values())
+        to_predict_list = [float(i) for i in to_predict_list]
+        #json_str = json.dumps(to_predict_list)
+        #json_str = json.dumps(to_predict_list)
         #to_predict_list = list(to_predict_list.values())
-        # result = ValuePredictor(to_predict_list)      
+        result = ValuePredictor(to_predict_list)      
     # return render_template("base.html", result = result)
-    return json_str
+    return render_template("predict.html", result=result)
 
 if __name__ == "__main__":
     app.run(debug=True)
