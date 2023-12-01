@@ -10,9 +10,13 @@ import json
 
 app = Flask(__name__)
 
-# Scaler
-X_scaler = pickle.load(open('X_scaler.pkl', 'rb'))
-y_scaler = pickle.load(open('y_scaler.pkl', 'rb'))
+# Scaler250More
+X_scaler_250more = pickle.load(open('X_scaler250more.pkl', 'rb'))
+y_scaler_250more = pickle.load(open('y_scaler250more.pkl', 'rb'))
+
+# Scaler250less
+X_scaler_250more = pickle.load(open('X_scaler.pkl', 'rb'))
+y_scaler_250more = pickle.load(open('y_scaler.pkl', 'rb'))
 
 @app.route('/')
 def index():
