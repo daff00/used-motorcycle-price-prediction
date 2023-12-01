@@ -9,19 +9,31 @@
     <h1>Prediksi Harga Motor Bekas</h1>
     <div>
         <form method="POST" action="/result">
-            <label for="merk">Merk:</label> <br>
-            <select name="merk" id="merk_motor">
-                <option value="1">Yamaha</option>
-                <option value="2">Honda</option>
-                <option value="3">Kawasaki</option>
-                <option value="4">Suzuki</option>
+            <label for="lokasi_motor">Lokasi:</label> <br>
+            <select name="lokasi" id="lokasi_motor">
+                <option value="1">Kota Jakarta Barat</option>
+                <option value="2">Kab. Tangerang</option>
+                <option value="3">Kota Jakarta Selatan</option>
+                <option value="4">Kota Bandung</option>
+                <option value="5">Kota Jakarta Timur</option>
+                <option value="6">Kab. Bogor</option>
+                <option value="7">Kota Jakarta Utara</option>
+                <option value="8">Kota Medan</option>
+                <option value="9">Kota Tangerang</option>
+                <option value="10">Kab. Bandung</option>
+                <option value="11">Kota Batam</option>
+                <option value="12">Kota Tangerang Selatan</option>
+                <option value="13">Kota Bekasi</option>
+                <option value="14">Kota Depok</option>
+                <option value="15">Kota Surabaya</option>
+                <option value="16">Kab. Deli Serdang</option>
             </select> <br> <br>
-        
-            <label for="tahun_motor">Tahun Kendaraan:</label> <br>
-            <input type="text" placeholder="Tahun" id="tahun_motor" name="tahun_motor"> <br> <br>
-        
+
             <label for="kapasitas_mesin">Kapasitas Mesin:</label> <br>
             <input type="text" placeholder="Kapasitas Mesin" id="kapasitas_mesin" name="kapasitas_mesin"> <br> <br>
+
+            <label for="tahun_motor">Tahun Kendaraan:</label> <br>
+            <input type="text" placeholder="Tahun" id="tahun_motor" name="tahun_motor"> <br> <br>
 
             <label for="kilometer">Kilometer:</label> <br>
             <select name="kilometer" id="kilometer_motor">
@@ -31,11 +43,13 @@
                 <option value="4">1000 - 5000 KM</option>
                 <option value="5">0 - 1000 KM</option>
             </select> <br> <br>
-        
-            <label for="lokasi_motor">Lokasi:</label> <br>
-            <select name="lokasi" id="lokasi_motor">
-                <option value="1">Jakarta</option>
-                <option value="10">Bandung</option>
+
+            <label for="merk">Merk:</label> <br>
+            <select name="merk" id="merk_motor">
+                <option value="1">Yamaha</option>
+                <option value="2">Honda</option>
+                <option value="3">Kawasaki</option>
+                <option value="4">Suzuki</option>
             </select> <br> <br>
         
             <button type="submit">Predict!</button>

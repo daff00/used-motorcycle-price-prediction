@@ -10,12 +10,8 @@ import json
 
 app = Flask(__name__)
 
-X_scaler_250more = pickle.load(open('X_scaler250more.pkl', 'rb'))
-y_scaler_250more = pickle.load(open('y_scaler250more.pkl', 'rb'))
-
-# Scaler250less
-X_scaler_250less = pickle.load(open('X_scaler250less.pkl', 'rb'))
-y_scaler_250less = pickle.load(open('y_scaler250less.pkl', 'rb'))
+X_scaler = pickle.load(open('X_scaler.pkl', 'rb'))
+y_scaler = pickle.load(open('y_scaler.pkl', 'rb'))
 
 @app.route('/')
 def index():
@@ -26,28 +22,10 @@ def index():
 def home():
     return render_template("base.html")
 
-def ValuePredictor_250less(to_predict_list):
-    to_predict = np.array(to_predict_list).reshape(-1,1)
-    to_predict_scaled = X_scaler_250less.fit_transform(to_predict)
-    loaded_model = pickle.load(open("nn_model_250less.pkl", "rb"))
-    
-    backshape = to_predict_scaled.reshape(1,-1)
-
-    result = loaded_model.predict(backshape)
-
-    # Inverse transform the result
-    result = y_scaler_250less.inverse_transform(result)
-
-    # Convert the result to a Python list
-    result = result.tolist()
-
-    result_json = json.dumps(result)
-    return result_json
-
-def ValuePredictor_250more(to_predict_list):
+def ValuePredictor(to_predict_list):
     to_predict = np.array(to_predict_list).reshape(-1,1)
     to_predict_scaled = X_scaler.fit_transform(to_predict)
-    loaded_model = pickle.load(open("nn_model250more.pkl", "rb"))
+    loaded_model = pickle.load(open("nn_model.pkl", "rb"))
     
     backshape = to_predict_scaled.reshape(1,-1)
 
@@ -68,10 +46,7 @@ def result():
         to_predict_list = request.form.to_dict()
         to_predict_list = list(to_predict_list.values())
         to_predict_list = [float(i) for i in to_predict_list]
-        if to_predict_list[2] < 250:
-            result = ValuePredictor_250less(to_predict_list)
-        else:
-            result = ValuePredictor_250more(to_predict_list)
+        result = ValuePredictor(to_predict_list)
               
     return render_template("predict.html", result=result)
 
